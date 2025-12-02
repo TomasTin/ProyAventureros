@@ -11,6 +11,7 @@ import java.time.LocalDate;
  * @author Tomas Lancheros
  */
 public class Servicio {
+    private int id;
     private Cliente cliente;
     private Conductor conductor;
     private LocalDate fecha;
@@ -18,7 +19,8 @@ public class Servicio {
     private double valor_total, tarifa_adicional;
     private final double VALOR_BASE = 10000.0;
 
-    public Servicio(Cliente cliente, Conductor conductor, String dir_origen, String dir_destino, String tipo_servicio, String categoria, String forma_pago, double valor_total, double tarifa_adicional) {
+    public Servicio(int id, Cliente cliente, Conductor conductor, String dir_origen, String dir_destino, String tipo_servicio, String categoria, String forma_pago, double valor_total, double tarifa_adicional) {
+        this.id = id;
         this.cliente = cliente;
         this.conductor = conductor;
         this.fecha = LocalDate.now();
@@ -32,6 +34,7 @@ public class Servicio {
     }
     
     public Servicio() {
+        this.id = 0;
         this.cliente = new Cliente();
         this.conductor = new Conductor();
         this.fecha = LocalDate.now();
@@ -46,6 +49,14 @@ public class Servicio {
     
     public void calcularValorTotal(){
         valor_total = VALOR_BASE + tarifa_adicional;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Cliente getCliente() {

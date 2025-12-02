@@ -16,12 +16,13 @@ import java.sql.ResultSet;
  * @author Tomas Lancheros
  */
 import com.mysql.cj.protocol.Resultset;
-import conexiones.ConexionMysql;
-public class ServicioDAO implements Contrato<Servicio>{
-    private static final String SQL_REAL_ALL = "SELECT * FROM ";
-    private static final String SQL_UPDATE = "UPDATE tb_libro  SET nombre = ?, autor = ?, editorial = ?, anio = ? WHERE isbn = ?";
-    private static final String SQL_DELETE = "DELETE FROM tb_libro WHERE isbn = ?";
-    private static final String SQL_CREATE = "INSERT INTO tb_libro VALUES(?,?,?,?,?)";
+import conexiones.ConexionPostgreSQL;
+import javax.swing.JOptionPane;
+public class ServicioDAO{
+    private static final String SQL_REAL_ALL = "SELECT * FROM servicio";
+    private static final String SQL_UPDATE = "UPDATE servicio SET id_cliente = ?, id_conductor = ?, id_tipo_servicio = ?, id_categoria = ?, fecha = ?, direccion_origen = ?, direccion_destino = ?, id_forma_pago = ? WHERE id_servicio = ?";
+    private static final String SQL_DELETE = "DELETE FROM servicio WHERE id_servicio = ?";
+    private static final String SQL_CREATE = "INSERT INTO servicio (id_cliente,id_conductor,id_tipo_servicio,id_categoria,fecha,direccion_origen,direccion_destino,id_forma_pago) VALUES(?,?,?,?,CURRENT_DATE,?,?,?)";
 
     public ServicioDAO() {
     }
@@ -33,15 +34,26 @@ public class ServicioDAO implements Contrato<Servicio>{
         try {
             ps = cx.getCnn().prepareStatement(SQL_CREATE);
             
-            ps.setLong(1, nuevo.getIsbn());
-            ps.setString(2, nuevo.getNombre());
-            ps.setString(3, nuevo.getAutor());
-            ps.setString(4, nuevo.getEditorial());
-            ps.setInt(5, nuevo.getAnio());
+            int tipoS_ID  = new TipoServicioDAO().buscarID(nuevo.getTipo_servicio());
+            int catID  = new TipoServicioDAO().buscarID(nuevo.getCategoria());
+            int formaP_ID  = new TipoServicioDAO().buscarID(nuevo.getForma_pago());
             
-            if(ps.execute()){
-                return true;
+            if(tipoS_ID == -1 || catID == -1 || formaP_ID == -1){
+                JOptionPane.showMessageDialog(null, "No existe el registro");
+            }else{
+                ps.setInt(1, nuevo.getCliente().getId());
+                ps.setInt(2, nuevo.getConductor().getId());
+                ps.setInt(3, tipoS_ID);
+                ps.setInt(4, catID);
+                ps.setString(5, nuevo.getDir_origen());
+                ps.setString(6, nuevo.getDir_destino());
+                ps.setInt(7, formaP_ID);
+
+                if(ps.execute()){
+                    return true;
+                }
             }
+            
             
         } catch (SQLException ex) {
             System.out.println("Error en la consulta de BD");
@@ -53,14 +65,14 @@ public class ServicioDAO implements Contrato<Servicio>{
         return false;
     }
 
-    public boolean delete(Object item){
+    public boolean delete(int item){
         PreparedStatement ps;
         ConexionPostgreSQL cx = ConexionPostgreSQL.getInstance();
         
         try {
             ps = cx.getCnn().prepareStatement(SQL_DELETE);
             
-            ps.setLong(1, ((Servicio)item).getIsbn());
+            ps.setLong(1, item);
             
             if(ps.executeUpdate() > 0){
                 return true;
@@ -74,7 +86,6 @@ public class ServicioDAO implements Contrato<Servicio>{
         }
         
         return false;
-        
     }
 
     public boolean update(Servicio filter){
@@ -84,14 +95,24 @@ public class ServicioDAO implements Contrato<Servicio>{
         try {
             ps = cx.getCnn().prepareStatement(SQL_UPDATE);
             
-            ps.setString(1, filter.getNombre());
-            ps.setString(2, filter.getAutor());
-            ps.setString(3, filter.getEditorial());
-            ps.setInt(4, filter.getAnio());
-            ps.setLong(5, filter.getIsbn());
+            int tipoS_ID  = new TipoServicioDAO().buscarID(filter.getTipo_servicio());
+            int catID  = new TipoServicioDAO().buscarID(filter.getCategoria());
+            int formaP_ID  = new TipoServicioDAO().buscarID(filter.getForma_pago());
             
-            if(ps.execute()){
-                return true;
+            if(tipoS_ID == -1 || catID == -1 || formaP_ID == -1){
+                JOptionPane.showMessageDialog(null, "No existe el registro");
+            }else{
+                ps.setInt(1, filter.getCliente().getId());
+                ps.setInt(2, filter.getConductor().getId());
+                ps.setInt(3, tipoS_ID);
+                ps.setInt(4, catID);
+                ps.setString(5, filter.getDir_origen());
+                ps.setString(6, filter.getDir_destino());
+                ps.setInt(7, formaP_ID);
+
+                if(ps.execute()){
+                    return true;
+                }
             }
             
         } catch (SQLException ex) {
@@ -105,11 +126,35 @@ public class ServicioDAO implements Contrato<Servicio>{
     }
 
     public Servicio read(Servicio filter) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PreparedStatement ps;
+        ResultSet rs;
+        ConexionPostgreSQL cx = ConexionPostgreSQL.getInstance();
+
+        try {
+            ps = cx.getCnn().prepareStatement(SQL_REAL_ALL);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Servicio dto = new Servicio(
+                        rs.getInt("id_servicio"),
+                        new ClienteDAO().read(rs.getInt("id_cliente")),
+                        rs.getString("autor"),
+                        rs.getString("editorial"),
+                        rs.getInt("anio")
+                );
+                lista.add(dto);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la consulta de BD");
+        } finally {
+            cx.cerrarConexion();
+            cx = null;
+        }
+
+        return lista;
     }
 
-    public List<Servicio> read_all() {
-        List<Servicio> lista = new ArrayList<>();
+    public ArrayList<Servicio> read_all() {
+        ArrayList<Servicio> lista = new ArrayList<>();
 
         PreparedStatement ps;
         ResultSet rs;
@@ -120,8 +165,16 @@ public class ServicioDAO implements Contrato<Servicio>{
             rs = ps.executeQuery();
             while (rs.next()) {
                 Servicio dto = new Servicio(
-                        rs.getLong("isbn"),
-                        rs.getString("nombre"),
+                        rs.getInt("id_servicio"),
+                        new Cliente(
+                                new Cuenta(, SQL_UPDATE),
+                                0,
+                                SQL_CREATE,
+                                SQL_CREATE,
+                                SQL_DELETE,
+                                SQL_REAL_ALL,
+                                telefonos
+                        ),
                         rs.getString("autor"),
                         rs.getString("editorial"),
                         rs.getInt("anio")

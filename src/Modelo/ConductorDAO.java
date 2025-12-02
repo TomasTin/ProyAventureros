@@ -5,30 +5,27 @@
 package Modelo;
 
 import conexiones.ConexionPostgreSQL;
-import java.util.List;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Tomas Lancheros
  */
-import com.mysql.cj.protocol.Resultset;
-import conexiones.ConexionPostgreSQL;
-import javax.swing.JOptionPane;
-public class ClienteDAO{
+public class ConductorDAO {
     private static final String SQL_REAL_ALL = "SELECT * FROM cliente";
     private static final String SQL_READ = "SELECT * FROM cliente WHERE id_cliente = ?";
     private static final String SQL_UPDATE = "UPDATE cliente SET nombre = ?, direccion = ?, id_genero = ?, id_nacionalidad = ?, usuario = ?, contrasena = ? WHERE id_cliente = ?";
     private static final String SQL_DELETE = "DELETE FROM cliente WHERE id_cliente = ?";
-    private static final String SQL_CREATE = "INSERT INTO cliente (nombre,direccion,id_genero,id_nacionalidad,usuario,constrasena)VALUES(?,?,?,?,?,?)";
+    private static final String SQL_CREATE = "INSERT INTO conductor (nombre,direccion,id_genero,id_nacionalidad,fotografia,usuario,constrasena)VALUES(?,?,?,?,?,?,?)";
 
-    public ClienteDAO() {
+    public ConductorDAO() {
     }
 
-    public boolean create(Cliente nuevo) {
+    public boolean create(Conductor nuevo) {
         PreparedStatement ps;
         ConexionPostgreSQL cx = ConexionPostgreSQL.getInstance();
         
