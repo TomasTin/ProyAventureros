@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
@@ -85,15 +86,7 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
     public void setIcon(JLabel icon) {
         this.icon = icon;
     }
-
-    public JTextPane getjTextPane1() {
-        return jTextPane1;
-    }
-
-    public void setjTextPane1(JTextPane jTextPane1) {
-        this.jTextPane1 = jTextPane1;
-    }
-
+    
     public JLabel getLblBienvenidoAventureros() {
         return lblBienvenidoAventureros;
     }
@@ -262,13 +255,6 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
         this.txtTelefono = txtTelefono;
     }
 
-    public JScrollPane getTxtTelefonos() {
-        return txtTelefonos;
-    }
-
-    public void setTxtTelefonos(JScrollPane txtTelefonos) {
-        this.txtTelefonos = txtTelefonos;
-    }
 
     public JTextField getTxtUsuario() {
         return txtUsuario;
@@ -278,9 +264,63 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
         this.txtUsuario = txtUsuario;
     }
 
-    
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
 
-        
+    public void setjScrollPane1(JScrollPane jScrollPane1) {
+        this.jScrollPane1 = jScrollPane1;
+    }
+
+    public JTextArea getTxtTelefonos() {
+        return txtTelefonos;
+    }
+
+    public void setTxtTelefonos(JTextArea txtTelefonos) {
+        this.txtTelefonos = txtTelefonos;
+    }
+
+    public JComboBox<String> getCmbGenero() {
+        return cmbGenero;
+    }
+
+    public void setCmbGenero(JComboBox<String> cmbGenero) {
+        this.cmbGenero = cmbGenero;
+    }
+
+    public JComboBox<String> getCmbNacionalidad() {
+        return cmbNacionalidad;
+    }
+
+    public void setCmbNacionalidad(JComboBox<String> cmbNacionalidad) {
+        this.cmbNacionalidad = cmbNacionalidad;
+    }
+
+    public JLabel getLblContrasena5() {
+        return lblContrasena5;
+    }
+
+    public void setLblContrasena5(JLabel lblContrasena5) {
+        this.lblContrasena5 = lblContrasena5;
+    }
+
+    public JLabel getLblContrasena6() {
+        return lblContrasena6;
+    }
+
+    public void setLblContrasena6(JLabel lblContrasena6) {
+        this.lblContrasena6 = lblContrasena6;
+    }
+
+    public JLabel getLblContrasena7() {
+        return lblContrasena7;
+    }
+
+    public void setLblContrasena7(JLabel lblContrasena7) {
+        this.lblContrasena7 = lblContrasena7;
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -294,8 +334,6 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
         btnAgregarCliente = new javax.swing.JButton();
         lblCuentaError = new javax.swing.JLabel();
         cmbTipoUsuario = new javax.swing.JComboBox<>();
-        txtTelefonos = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
         lblContrasena1 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         lblContrasena2 = new javax.swing.JLabel();
@@ -316,6 +354,13 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
         lblContrasena4 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         errUsuario = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtTelefonos = new javax.swing.JTextArea();
+        lblContrasena5 = new javax.swing.JLabel();
+        lblContrasena6 = new javax.swing.JLabel();
+        cmbNacionalidad = new javax.swing.JComboBox<>();
+        lblContrasena7 = new javax.swing.JLabel();
+        cmbGenero = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -333,12 +378,11 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
 
         cmbTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cliente", "Conductor" }));
 
-        txtTelefonos.setViewportView(jTextPane1);
-
         lblContrasena1.setText("Tipo Usuario:");
 
-        lblContrasena2.setText("Telefono:");
+        lblContrasena2.setText("Teléfono:");
 
+        pnlVehiculo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pnlVehiculo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblUsuario1.setText("Marca:");
@@ -373,7 +417,7 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
         pnlVehiculo.add(spinModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 228, 188, -1));
 
         icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/img/cliente.png"))); // NOI18N
-        pnlVehiculo.add(icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 210, 420));
+        pnlVehiculo.add(icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 190, 420));
 
         btnAgregarTelefono.setText("Agregar");
 
@@ -383,6 +427,20 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
 
         errUsuario.setBackground(new java.awt.Color(204, 0, 0));
 
+        txtTelefonos.setColumns(20);
+        txtTelefonos.setRows(5);
+        jScrollPane1.setViewportView(txtTelefonos);
+
+        lblContrasena5.setText("Teléfonos:");
+
+        lblContrasena6.setText("Género:");
+
+        cmbNacionalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Colombia", "Venezuela" }));
+
+        lblContrasena7.setText("Nacionalidad:");
+
+        cmbGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hombre", "DizqueMujer" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -390,52 +448,61 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblContrasena1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblBienvenidoAventureros)
                         .addComponent(lblContrasena)
                         .addComponent(lblUsuario)
                         .addComponent(lblInicioSesion)
-                        .addComponent(lblContrasena2)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtTelefonos, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnAgregarTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
-                                .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                                    .addGap(73, 73, 73))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(txtNombre)
+                                    .addGap(73, 73, 73)))
                             .addComponent(lblCuentaError)))
-                    .addComponent(lblContrasena3)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblContrasena3)
+                            .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblContrasena4)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(errUsuario))
+                    .addComponent(lblContrasena1)
+                    .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblContrasena5)
+                    .addComponent(lblContrasena2)
+                    .addComponent(lblContrasena6)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblContrasena4))
+                        .addComponent(cmbNacionalidad, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(errUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                            .addComponent(btnAgregarTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblContrasena7)
+                    .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAgregarCliente)
-                .addGap(182, 182, 182))
+                .addGap(231, 231, 231))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(126, 126, 126)
                 .addComponent(lblBienvenidoAventureros)
                 .addGap(18, 18, 18)
                 .addComponent(lblInicioSesion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                         .addComponent(lblUsuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -448,12 +515,37 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
                                 .addGap(113, 113, 113)
                                 .addComponent(lblCuentaError))
                             .addGroup(layout.createSequentialGroup()
+=======
+                        .addGap(422, 422, 422)
+                        .addComponent(errUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(pnlVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblUsuario)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblContrasena)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblContrasena6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblContrasena7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                                .addComponent(cmbNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+>>>>>>> 7c5c3003848e580e17521abcb4514e22c631f2ef
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblContrasena2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnAgregarTelefono))
+<<<<<<< HEAD
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtTelefonos, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(11, 11, 11)
@@ -471,12 +563,28 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblContrasena4)
+=======
+                                .addGap(12, 12, 12)
+                                .addComponent(lblContrasena5)
+>>>>>>> 7c5c3003848e580e17521abcb4514e22c631f2ef
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(pnlVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblCuentaError)
+                                .addGap(2, 2, 2)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblContrasena1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblContrasena3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblContrasena4)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addComponent(btnAgregarCliente)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -490,18 +598,23 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCliente;
     private javax.swing.JButton btnAgregarTelefono;
+    private javax.swing.JComboBox<String> cmbGenero;
     private javax.swing.JComboBox<String> cmbMarca;
+    private javax.swing.JComboBox<String> cmbNacionalidad;
     private javax.swing.JComboBox<String> cmbTipoServicio;
     private javax.swing.JComboBox<String> cmbTipoUsuario;
     private javax.swing.JLabel errUsuario;
     private javax.swing.JLabel icon;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBienvenidoAventureros;
     private javax.swing.JLabel lblContrasena;
     private javax.swing.JLabel lblContrasena1;
     private javax.swing.JLabel lblContrasena2;
     private javax.swing.JLabel lblContrasena3;
     private javax.swing.JLabel lblContrasena4;
+    private javax.swing.JLabel lblContrasena5;
+    private javax.swing.JLabel lblContrasena6;
+    private javax.swing.JLabel lblContrasena7;
     private javax.swing.JLabel lblCuentaError;
     private javax.swing.JLabel lblInicioSesion;
     private javax.swing.JLabel lblInicioSesion1;
@@ -517,7 +630,7 @@ public class FrmCrearCuenta extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPlaca;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JScrollPane txtTelefonos;
+    private javax.swing.JTextArea txtTelefonos;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
