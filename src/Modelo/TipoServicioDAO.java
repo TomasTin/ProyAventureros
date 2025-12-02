@@ -8,26 +8,22 @@ import conexiones.ConexionPostgreSQL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Tomas Lancheros
  */
-public class GeneroDAO{
-    private static final String SQL_READ_ALL = "SELECT * FROM genero";
-    private static final String SQL_READ = "SELECT id_genero FROM genero WHERE nombre_genero = ?";
+public class TipoServicioDAO {
+    private static final String SQL_READ_ALL = "SELECT * FROM forma_pago";
+    private static final String SQL_READ = "SELECT id_forma_pago FROM forma_pago WHERE nombre_forma_pago = ?";
     private static final String SQL_UPDATE = "UPDATE genero SET nombre_genero = ? WHERE id_genero = ?";
     private static final String SQL_DELETE = "DELETE FROM cliente WHERE id_cliente = ?";
     private static final String SQL_CREATE = "INSERT INTO cliente (nombre,direccion,id_genero,id_nacionalidad,usuario,constrasena)VALUES(?,?,?,?,?,?)";
 
-    public GeneroDAO() {
+    public TipoServicioDAO() {
     }
     
     public int buscarID(String filter) {
-
         PreparedStatement ps;
         ResultSet rs;
         ConexionPostgreSQL cx = ConexionPostgreSQL.getInstance();
@@ -38,7 +34,7 @@ public class GeneroDAO{
             rs = ps.executeQuery();
             
             if(rs.next()){
-                numeroID = rs.getInt("id_genero");
+                numeroID = rs.getInt("id_forma_pago");
             }
             
         } catch (SQLException ex) {
