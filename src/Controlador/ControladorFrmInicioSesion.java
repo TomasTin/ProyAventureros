@@ -61,6 +61,8 @@ public class ControladorFrmInicioSesion implements ActionListener{
         frm.setResizable(false);
         
         agregarListener(frm);
+        
+        objA.set();
     }
 
     @Override

@@ -7,9 +7,12 @@ package Modelo;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,4 +46,28 @@ public class GestorImagenes {
 
         return buffered;
     }
+    
+    
+    public static byte[] bufferedImageToBytes(BufferedImage img) {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            ImageIO.write(img, "png", baos); // o "jpg"
+            return baos.toByteArray();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al convertir la imagen");
+            return null;
+        }
+    }
+    
+    public static BufferedImage bytesToBufferedImage(byte[] imagenBytes) {
+    if (imagenBytes == null) {
+        return null;
+    }
+
+    try (ByteArrayInputStream bais = new ByteArrayInputStream(imagenBytes)) {
+        return ImageIO.read(bais);
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Error al convertir la imagen");
+        return null;
+    }
+}
 }

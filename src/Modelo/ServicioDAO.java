@@ -19,7 +19,8 @@ import com.mysql.cj.protocol.Resultset;
 import conexiones.ConexionPostgreSQL;
 import javax.swing.JOptionPane;
 public class ServicioDAO{
-    private static final String SQL_REAL_ALL = "SELECT * FROM servicio";
+    private static final String SQL_READ_ALL = "SELECT * FROM servicio";
+    private static final String SQL_READ = "SELECT * FROM servicio WHERE id_servicio = ?";
     private static final String SQL_UPDATE = "UPDATE servicio SET id_cliente = ?, id_conductor = ?, id_tipo_servicio = ?, id_categoria = ?, fecha = ?, direccion_origen = ?, direccion_destino = ?, id_forma_pago = ? WHERE id_servicio = ?";
     private static final String SQL_DELETE = "DELETE FROM servicio WHERE id_servicio = ?";
     private static final String SQL_CREATE = "INSERT INTO servicio (id_cliente,id_conductor,id_tipo_servicio,id_categoria,fecha,direccion_origen,direccion_destino,id_forma_pago) VALUES(?,?,?,?,CURRENT_DATE,?,?,?)";
@@ -125,23 +126,31 @@ public class ServicioDAO{
         return false;
     }
 
-    public Servicio read(Servicio filter) {
+    public Servicio read(int id_servicio) {
         PreparedStatement ps;
         ResultSet rs;
         ConexionPostgreSQL cx = ConexionPostgreSQL.getInstance();
+        Servicio dto = null;
 
         try {
-            ps = cx.getCnn().prepareStatement(SQL_REAL_ALL);
+            ps = cx.getCnn().prepareStatement(SQL_READ);
+            ps.setInt(1, id_servicio);
             rs = ps.executeQuery();
-            while (rs.next()) {
-                Servicio dto = new Servicio(
-                        rs.getInt("id_servicio"),
-                        new ClienteDAO().read(rs.getInt("id_cliente")),
-                        rs.getString("autor"),
-                        rs.getString("editorial"),
-                        rs.getInt("anio")
+            if(rs.next()){
+                dto = new Servicio(
+                    rs.getInt("id_servicio"),
+                    new ClienteDAO().read(rs.getInt("id_cliente")),
+                    new ConductorDAO().read(rs.getInt("id_conductor")),
+                    rs.getDate("fecha").toLocalDate(),
+                    rs.getString("direccion_origen"),
+                    rs.getString("direccion_destino"),
+                    new TipoServicioDAO().read(rs.getInt("id_tipo_servicio")),
+                    new CategoriaDAO().read(rs.getInt("id_categoria")),
+                    new FormaPagoDAO().read(rs.getInt("id_forma_pago")),
+                    new CategoriaDAO().read_tarif(rs.getInt("id_categoria")),
+                    0.0
                 );
-                lista.add(dto);
+                dto.calcularValorTotal();
             }
         } catch (SQLException ex) {
             System.out.println("Error en la consulta de BD");
@@ -150,7 +159,7 @@ public class ServicioDAO{
             cx = null;
         }
 
-        return lista;
+        return dto;
     }
 
     public ArrayList<Servicio> read_all() {
@@ -161,24 +170,23 @@ public class ServicioDAO{
         ConexionPostgreSQL cx = ConexionPostgreSQL.getInstance();
 
         try {
-            ps = cx.getCnn().prepareStatement(SQL_REAL_ALL);
+            ps = cx.getCnn().prepareStatement(SQL_READ_ALL);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Servicio dto = new Servicio(
-                        rs.getInt("id_servicio"),
-                        new Cliente(
-                                new Cuenta(, SQL_UPDATE),
-                                0,
-                                SQL_CREATE,
-                                SQL_CREATE,
-                                SQL_DELETE,
-                                SQL_REAL_ALL,
-                                telefonos
-                        ),
-                        rs.getString("autor"),
-                        rs.getString("editorial"),
-                        rs.getInt("anio")
+                    rs.getInt("id_servicio"),
+                    new ClienteDAO().read(rs.getInt("id_cliente")),
+                    new ConductorDAO().read(rs.getInt("id_conductor")),
+                    rs.getDate("fecha").toLocalDate(),
+                    rs.getString("direccion_origen"),
+                    rs.getString("direccion_destino"),
+                    new TipoServicioDAO().read(rs.getInt("id_tipo_servicio")),
+                    new CategoriaDAO().read(rs.getInt("id_categoria")),
+                    new FormaPagoDAO().read(rs.getInt("id_forma_pago")),
+                    new CategoriaDAO().read_tarif(rs.getInt("id_categoria")),
+                    0.0
                 );
+                dto.calcularValorTotal();
                 lista.add(dto);
             }
         } catch (SQLException ex) {

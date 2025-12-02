@@ -19,18 +19,18 @@ public class Servicio {
     private double valor_total, tarifa_adicional;
     private final double VALOR_BASE = 10000.0;
 
-    public Servicio(int id, Cliente cliente, Conductor conductor, String dir_origen, String dir_destino, String tipo_servicio, String categoria, String forma_pago, double valor_total, double tarifa_adicional) {
+    public Servicio(int id, Cliente cliente, Conductor conductor, LocalDate fecha, String dir_origen, String dir_destino, String tipo_servicio, String categoria, String forma_pago, double tarifa_adicional, double valor_total) {
         this.id = id;
         this.cliente = cliente;
         this.conductor = conductor;
-        this.fecha = LocalDate.now();
+        this.fecha = fecha;
         this.dir_origen = dir_origen;
         this.dir_destino = dir_destino;
         this.tipo_servicio = tipo_servicio;
         this.categoria = categoria;
         this.forma_pago = forma_pago;
-        this.valor_total = valor_total;
         this.tarifa_adicional = tarifa_adicional;
+        this.valor_total = valor_total;
     }
     
     public Servicio() {

@@ -9,22 +9,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Tomas Lancheros
  */
-public class TipoServicioDAO {
-    private static final String SQL_READ_ALL = "SELECT * FROM tipo_servicio";
-    private static final String SQL_ID = "SELECT id_forma_pago FROM tipo_servicio WHERE nombre_tipo_servicio = ?";
-    private static final String SQL_READ = "SELECT * FROM tipo_servicio WHERE id_tipo_servicio = ?";
-    private static final String SQL_UPDATE = "UPDATE tipo_servicio SET nombre_tipo_servicio = ? WHERE id_tipo_servicio = ?";
-    private static final String SQL_DELETE = "DELETE FROM tipo_servicio WHERE id_tipo_servicio = ?";
-    private static final String SQL_CREATE = "INSERT INTO tipo_servicio (nombre_tipo_servicio)VALUES(?)";
+public class CategoriaDAO {
+    private static final String SQL_READ_ALL = "SELECT * FROM categoria";
+    private static final String SQL_ID = "SELECT id_categoria FROM categoria WHERE nombre_categoria = ?";
+    private static final String SQL_READ = "SELECT * FROM categoria WHERE id_categoria = ?";
+    private static final String SQL_UPDATE = "UPDATE categoria SET nombre_categoria = ? WHERE id_categoria = ?";
+    private static final String SQL_DELETE = "DELETE FROM categoria WHERE id_categoria = ?";
+    private static final String SQL_CREATE = "INSERT INTO categoria (nombre_categoria)VALUES(?)";
     
 
-    public TipoServicioDAO() {
+    public CategoriaDAO() {
     }
     
     public int buscarID(String filter) {
@@ -38,7 +37,7 @@ public class TipoServicioDAO {
             rs = ps.executeQuery();
             
             if(rs.next()){
-                numeroID = rs.getInt("id_forma_pago");
+                numeroID = rs.getInt("id_categoria");
             }
             
         } catch (SQLException ex) {
@@ -86,14 +85,14 @@ public class TipoServicioDAO {
         PreparedStatement ps;
         ResultSet rs;
         ConexionPostgreSQL cx = ConexionPostgreSQL.getInstance();
-        String nombre_marca = null;
+        String nombre_categoria = null;
         try {
             ps = cx.getCnn().prepareStatement(SQL_READ);
             ps.setInt(1, id);
             rs = ps.executeQuery();
             
             if(rs.next()){
-                nombre_marca = rs.getString("nombre_marca");
+                nombre_categoria = rs.getString("nombre_categoria");
             }
         } catch (SQLException ex) {
             System.out.println("Error en la consulta de BD");
@@ -102,7 +101,30 @@ public class TipoServicioDAO {
             cx = null;
         }
 
-        return nombre_marca;
+        return nombre_categoria;
+    }
+    
+    public double read_tarif(int id) {
+        PreparedStatement ps;
+        ResultSet rs;
+        ConexionPostgreSQL cx = ConexionPostgreSQL.getInstance();
+        double tarifa_adicional = -1;
+        try {
+            ps = cx.getCnn().prepareStatement(SQL_READ);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                tarifa_adicional = rs.getDouble("tarifa_adicional");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en la consulta de BD");
+        } finally {
+            cx.cerrarConexion();
+            cx = null;
+        }
+
+        return tarifa_adicional;
     }
 
     public ArrayList<String> read_all() {
@@ -117,7 +139,7 @@ public class TipoServicioDAO {
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                String aux = rs.getString("nombre_marca");
+                String aux = rs.getString("nombre_categoria");
                 lista.add(aux);
             }
         } catch (SQLException ex) {

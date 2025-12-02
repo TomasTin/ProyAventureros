@@ -11,28 +11,28 @@ import java.util.ArrayList;
  * @author Tomas Lancheros
  */
 public class AventurerosSAS {
-    private ArrayList<Administrador> admninistradores;
+    private Administrador admninistrador;
     private ArrayList<Cliente> clientes;
     private ArrayList<Conductor> conductores;
 
-    public AventurerosSAS(ArrayList<Administrador> admninistradores, ArrayList<Cliente> clientes, ArrayList<Conductor> conductores) {
-        this.admninistradores = admninistradores;
+    public AventurerosSAS(Administrador admninistrador, ArrayList<Cliente> clientes, ArrayList<Conductor> conductores) {
+        this.admninistrador = admninistrador;
         this.clientes = clientes;
         this.conductores = conductores;
     }
-    
+
     public AventurerosSAS() {
-        this.admninistradores = new ArrayList<>();
+        this.admninistrador = new Administrador();
         this.clientes = new ArrayList<>();
         this.conductores = new ArrayList<>();
     }
 
-    public ArrayList<Administrador> getAdmninistradores() {
-        return admninistradores;
+    public Administrador getAdmninistrador() {
+        return admninistrador;
     }
 
-    public void setAdmninistradores(ArrayList<Administrador> admninistradores) {
-        this.admninistradores = admninistradores;
+    public void setAdmninistrador(Administrador admninistrador) {
+        this.admninistrador = admninistrador;
     }
 
     public ArrayList<Cliente> getClientes() {

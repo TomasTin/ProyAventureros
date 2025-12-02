@@ -13,14 +13,10 @@ import java.util.ArrayList;
 public class Administrador extends Persona {
     private Cuenta cnt;
 
-    public Administrador(Cuenta cnt, int id, String nombre, String direccion, String genero, String nacionalidad, ArrayList<Long> telefonos) {
-        super(id, nombre, direccion, genero, nacionalidad, telefonos);
-        this.cnt = cnt;
-    }
-
     public Administrador() {
         super();
-        this.cnt = new Cuenta();
+        this.cnt.setUsuario("Admin");
+        this.cnt.setPassword("12345");
     }
 
     public Cuenta getCnt() {

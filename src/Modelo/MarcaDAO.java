@@ -15,30 +15,31 @@ import javax.swing.JOptionPane;
  *
  * @author Tomas Lancheros
  */
-public class TipoServicioDAO {
-    private static final String SQL_READ_ALL = "SELECT * FROM tipo_servicio";
-    private static final String SQL_ID = "SELECT id_forma_pago FROM tipo_servicio WHERE nombre_tipo_servicio = ?";
-    private static final String SQL_READ = "SELECT * FROM tipo_servicio WHERE id_tipo_servicio = ?";
-    private static final String SQL_UPDATE = "UPDATE tipo_servicio SET nombre_tipo_servicio = ? WHERE id_tipo_servicio = ?";
-    private static final String SQL_DELETE = "DELETE FROM tipo_servicio WHERE id_tipo_servicio = ?";
-    private static final String SQL_CREATE = "INSERT INTO tipo_servicio (nombre_tipo_servicio)VALUES(?)";
-    
+public class MarcaDAO {
+    private static final String SQL_READ_ALL = "SELECT * FROM marca";
+    private static final String SQL_ID = "SELECT id_marca FROM marca WHERE nombre_marca = ?";
+    private static final String SQL_READ = "SELECT * FROM marca WHERE id_marca = ?";
+    private static final String SQL_UPDATE = "UPDATE marca SET nombre_marca = ? WHERE id_marca = ?";
+    private static final String SQL_DELETE = "DELETE FROM marca WHERE id_marca = ?";
+    private static final String SQL_CREATE = "INSERT INTO marca (nombre_marca)VALUES(?)";
 
-    public TipoServicioDAO() {
+    public MarcaDAO() {
     }
     
     public int buscarID(String filter) {
+
         PreparedStatement ps;
         ResultSet rs;
         ConexionPostgreSQL cx = ConexionPostgreSQL.getInstance();
         int numeroID = -1;
+        
         try {
             ps = cx.getCnn().prepareStatement(SQL_ID);
             ps.setString(1, filter);
             rs = ps.executeQuery();
             
             if(rs.next()){
-                numeroID = rs.getInt("id_forma_pago");
+                numeroID = rs.getInt("id_marca");
             }
             
         } catch (SQLException ex) {
@@ -52,33 +53,14 @@ public class TipoServicioDAO {
     }
     
     public boolean create(String nuevo) {
-        PreparedStatement ps;
-        ConexionPostgreSQL cx = ConexionPostgreSQL.getInstance();
-        
-        try {
-            ps = cx.getCnn().prepareStatement(SQL_CREATE);
-            
-            ps.setString(1, nuevo);
-                
-            if(ps.executeUpdate()>0){
-                return true;
-            }
-            
-        } catch (SQLException ex) {
-            System.out.println("Error en la consulta de BD");
-        } finally {
-            cx.cerrarConexion();
-            cx = null;
-        }
-        
         return false;
     }
 
     public boolean delete(Object item){
-        return true;
+        return false;
     }
 
-    public boolean update(int filter){
+    public boolean update(){
         return false;
     }
 
@@ -129,4 +111,5 @@ public class TipoServicioDAO {
 
         return lista;
     }
+    
 }

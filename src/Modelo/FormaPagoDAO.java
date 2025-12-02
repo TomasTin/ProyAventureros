@@ -9,22 +9,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Tomas Lancheros
  */
-public class TipoServicioDAO {
-    private static final String SQL_READ_ALL = "SELECT * FROM tipo_servicio";
-    private static final String SQL_ID = "SELECT id_forma_pago FROM tipo_servicio WHERE nombre_tipo_servicio = ?";
-    private static final String SQL_READ = "SELECT * FROM tipo_servicio WHERE id_tipo_servicio = ?";
-    private static final String SQL_UPDATE = "UPDATE tipo_servicio SET nombre_tipo_servicio = ? WHERE id_tipo_servicio = ?";
-    private static final String SQL_DELETE = "DELETE FROM tipo_servicio WHERE id_tipo_servicio = ?";
-    private static final String SQL_CREATE = "INSERT INTO tipo_servicio (nombre_tipo_servicio)VALUES(?)";
+public class FormaPagoDAO {
+    private static final String SQL_READ_ALL = "SELECT * FROM forma_pago";
+    private static final String SQL_ID = "SELECT id_forma_pago FROM categoria WHERE nombre_categoria = ?";
+    private static final String SQL_READ = "SELECT * FROM forma_pago WHERE id_forma_pago = ?";
+    private static final String SQL_UPDATE = "UPDATE forma_pago SET nombre_forma_pago = ? WHERE id_forma_pago = ?";
+    private static final String SQL_DELETE = "DELETE FROM forma_pago WHERE id_forma_pago = ?";
+    private static final String SQL_CREATE = "INSERT INTO forma_pago (nombre_forma_pago)VALUES(?)";
     
 
-    public TipoServicioDAO() {
+    public FormaPagoDAO() {
     }
     
     public int buscarID(String filter) {
@@ -86,14 +85,14 @@ public class TipoServicioDAO {
         PreparedStatement ps;
         ResultSet rs;
         ConexionPostgreSQL cx = ConexionPostgreSQL.getInstance();
-        String nombre_marca = null;
+        String nombre_categoria = null;
         try {
             ps = cx.getCnn().prepareStatement(SQL_READ);
             ps.setInt(1, id);
             rs = ps.executeQuery();
             
             if(rs.next()){
-                nombre_marca = rs.getString("nombre_marca");
+                nombre_categoria = rs.getString("nombre_forma_pago");
             }
         } catch (SQLException ex) {
             System.out.println("Error en la consulta de BD");
@@ -102,7 +101,7 @@ public class TipoServicioDAO {
             cx = null;
         }
 
-        return nombre_marca;
+        return nombre_categoria;
     }
 
     public ArrayList<String> read_all() {
@@ -117,7 +116,7 @@ public class TipoServicioDAO {
             rs = ps.executeQuery();
             
             while (rs.next()) {
-                String aux = rs.getString("nombre_marca");
+                String aux = rs.getString("nombre_forma_pago");
                 lista.add(aux);
             }
         } catch (SQLException ex) {
@@ -129,4 +128,5 @@ public class TipoServicioDAO {
 
         return lista;
     }
+    
 }
