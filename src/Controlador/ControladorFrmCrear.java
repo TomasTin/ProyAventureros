@@ -159,13 +159,7 @@ public class ControladorFrmCrear implements ActionListener {
             }
             persona.setTelefonos(telefonos);
             persona.setGenero(frmCrear.getCmbGenero().getSelectedItem().toString());
-            String personaa;
-            personaa = persona.getNombre() + " " + persona.getDireccion()
-                    + " " + persona.getNacionalidad() + "\nTelefonos:";
-            for(Long tel : telefonos){
-                personaa += tel  + " ";
-            }
-            JOptionPane.showMessageDialog(frmCrear, personaa);
+            persona.getCu
         }
     }
 }
