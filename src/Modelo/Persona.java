@@ -11,10 +11,12 @@ import java.util.ArrayList;
  * @author Tomas Lancheros
  */
 public abstract class Persona {
+    protected int id;
     protected String nombre, direccion, genero, nacionalidad;
     protected ArrayList<Long> telefonos;
 
-    public Persona(String nombre, String direccion, String genero, String nacionalidad, ArrayList<Long> telefonos) {
+    public Persona(int id, String nombre, String direccion, String genero, String nacionalidad, ArrayList<Long> telefonos) {
+        this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.genero = genero;
@@ -23,6 +25,7 @@ public abstract class Persona {
     }
 
     public Persona() {
+        this.id = 0;
         this.nombre = "";
         this.direccion = "";
         this.genero = "";
@@ -70,8 +73,11 @@ public abstract class Persona {
         this.telefonos = telefonos;
     }
 
-    @Override
-    public String toString() {
-        return "Nombre:" + nombre + "\nDireccion:" + direccion + "\nGenero:" + genero + "\nNacionalidad:" + nacionalidad + "\nTelefonos:" + telefonos;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

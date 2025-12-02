@@ -13,12 +13,12 @@ import java.util.ArrayList;
 public class Administrador extends Persona {
     private Cuenta cnt;
 
-    public Administrador(Cuenta cnt, String nombre, String direccion, String genero, String nacionalidad, ArrayList<Long> telefonos) {
-        super(nombre, direccion, genero, nacionalidad, telefonos);
+    public Administrador(Cuenta cnt, int id, String nombre, String direccion, String genero, String nacionalidad, ArrayList<Long> telefonos) {
+        super(id, nombre, direccion, genero, nacionalidad, telefonos);
         this.cnt = cnt;
     }
 
-    public Administrador(){
+    public Administrador() {
         super();
         this.cnt = new Cuenta();
     }

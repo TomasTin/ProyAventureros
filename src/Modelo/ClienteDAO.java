@@ -17,6 +17,7 @@ import java.sql.ResultSet;
  */
 import com.mysql.cj.protocol.Resultset;
 import conexiones.ConexionPostgreSQL;
+import javax.swing.JOptionPane;
 public class ClienteDAO implements Contrato<Cliente>{
     private static final String SQL_REAL_ALL = "SELECT * FROM cliente";
     private static final String SQL_UPDATE = "UPDATE cliente SET nombre = ?, direccion = ?, id_genero = ?, id_nacionalidad = ?, usuario = ?, contrasena = ? WHERE id_cliente = ?";
@@ -33,16 +34,22 @@ public class ClienteDAO implements Contrato<Cliente>{
         try {
             ps = cx.getCnn().prepareStatement(SQL_CREATE);
             
+            int genID = new GeneroDAO().buscarID(nuevo.getGenero());
+            int nacID = new NacionalidadDAO().buscarID(nuevo.getNacionalidad());
             
-            
-            ps.setString(1, nuevo.getNombre());
-            ps.setString(2, nuevo.getDireccion());
-            ps.setInt(3, gen);
-            ps.setString(4, nuevo.getEditorial());
-            ps.setInt(5, nuevo.getAnio());
-            
-            if(ps.execute()){
-                return true;
+            if(genID == -1 || nacID == -1){
+                JOptionPane.showMessageDialog(null, "No se encontró registro");
+            }else{
+                ps.setString(1, nuevo.getNombre());
+                ps.setString(2, nuevo.getDireccion());
+                ps.setInt(3, genID);
+                ps.setInt(4, nacID);
+                ps.setString(5, nuevo.getCnt().getUsuario());
+                ps.setString(6, nuevo.getCnt().getPassword());
+
+                if(ps.execute()){
+                    return true;
+                }
             }
             
         } catch (SQLException ex) {
@@ -62,7 +69,7 @@ public class ClienteDAO implements Contrato<Cliente>{
         try {
             ps = cx.getCnn().prepareStatement(SQL_DELETE);
             
-            ps.setLong(1, ((Cliente)item).getIsbn());
+            ps.setInt(1, ((Cliente)item).getId());
             
             if(ps.executeUpdate() > 0){
                 return true;
@@ -76,7 +83,6 @@ public class ClienteDAO implements Contrato<Cliente>{
         }
         
         return false;
-        
     }
 
     public boolean update(Cliente filter){
@@ -86,14 +92,23 @@ public class ClienteDAO implements Contrato<Cliente>{
         try {
             ps = cx.getCnn().prepareStatement(SQL_UPDATE);
             
-            ps.setString(1, filter.getNombre());
-            ps.setString(2, filter.getAutor());
-            ps.setString(3, filter.getEditorial());
-            ps.setInt(4, filter.getAnio());
-            ps.setLong(5, filter.getIsbn());
+            int genID = new GeneroDAO().buscarID(filter.getGenero());
+            int nacID = new NacionalidadDAO().buscarID(filter.getNacionalidad());
             
-            if(ps.execute()){
-                return true;
+            if(genID == -1 || nacID == -1){
+                JOptionPane.showMessageDialog(null, "No se encontró registro");
+            }else{
+                ps.setString(1, filter.getNombre());
+                ps.setString(2, filter.getDireccion());
+                ps.setInt(3, genID);
+                ps.setInt(4, nacID);
+                ps.setString(5, filter.getCnt().getUsuario());
+                ps.setString(6, filter.getCnt().getPassword());
+                ps.setInt(7, filter.getId());
+
+                if(ps.execute()){
+                    return true;
+                }
             }
             
         } catch (SQLException ex) {
@@ -106,7 +121,7 @@ public class ClienteDAO implements Contrato<Cliente>{
         return false;
     }
 
-    public Servicio read(Cliente filter) {
+    public Cliente read(Cliente filter) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -120,13 +135,16 @@ public class ClienteDAO implements Contrato<Cliente>{
         try {
             ps = cx.getCnn().prepareStatement(SQL_REAL_ALL);
             rs = ps.executeQuery();
+            
             while (rs.next()) {
                 Cliente dto = new Cliente(
-                        rs.getLong("isbn"),
+                        new Cuenta(rs.getString("usuario"),rs.getString("contrasena")),
+                        rs.getInt("id_cliente"),
                         rs.getString("nombre"),
-                        rs.getString("autor"),
-                        rs.getString("editorial"),
-                        rs.getInt("anio")
+                        rs.getString("direccion"),
+                        rs.getString("genero"),
+                        rs.getString("nacionalidad"),
+                        new TelefonoClienteDAO().read(rs.getInt("id_cliente"))
                 );
                 lista.add(dto);
             }

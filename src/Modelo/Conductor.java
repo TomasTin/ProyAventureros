@@ -16,14 +16,14 @@ public class Conductor extends Persona{
     private BufferedImage fotografia;
     private Cuenta cnt;
 
-    public Conductor(Vehiculo v, BufferedImage fotografia, Cuenta cnt, String nombre, String direccion, String genero, String nacionalidad, ArrayList<Long> telefonos) {
-        super(nombre, direccion, genero, nacionalidad, telefonos);
+    public Conductor(Vehiculo v, BufferedImage fotografia, Cuenta cnt, int id, String nombre, String direccion, String genero, String nacionalidad, ArrayList<Long> telefonos) {
+        super(id, nombre, direccion, genero, nacionalidad, telefonos);
         this.v = v;
         this.fotografia = fotografia;
         this.cnt = cnt;
     }
 
-    public Conductor() {
+    public Conductor(){
         super();
         this.v = new Vehiculo();
         this.fotografia = null;

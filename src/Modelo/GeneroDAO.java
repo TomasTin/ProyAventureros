@@ -10,19 +10,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Tomas Lancheros
  */
-public class NacionalidadDAO{
-    private static final String SQL_READ_ALL = "SELECT * FROM nacionalidad";
-    private static final String SQL_READ = "SELECT id_nacionalidad FROM nacionalidad WHERE nombre_pais = ?";
-    private static final String SQL_UPDATE = "UPDATE nacionalidad SET nombre_pais = ? WHERE nombre_pais = ?";
-    private static final String SQL_DELETE = "DELETE FROM nacionalidad WHERE nombre_pais = ?";
-    private static final String SQL_CREATE = "INSERT INTO nacionalidad (nombre_pais)VALUES(?)";
+public class GeneroDAO implements{
+    private static final String SQL_READ_ALL = "SELECT * FROM genero";
+    private static final String SQL_READ = "SELECT id_genero FROM genero WHERE nombre_genero = ?";
+    private static final String SQL_UPDATE = "UPDATE genero SET nombre_genero = ? WHERE id_genero = ?";
+    private static final String SQL_DELETE = "DELETE FROM cliente WHERE id_cliente = ?";
+    private static final String SQL_CREATE = "INSERT INTO cliente (nombre,direccion,id_genero,id_nacionalidad,usuario,constrasena)VALUES(?,?,?,?,?,?)";
 
-    public NacionalidadDAO() {
+    public GeneroDAO() {
     }
     
     public int buscarID(String filter) {
@@ -37,7 +38,7 @@ public class NacionalidadDAO{
             rs = ps.executeQuery();
             
             if(rs.next()){
-                numeroID = rs.getInt("id_nacionalidad");
+                numeroID = rs.getInt("id_genero");
             }
             
         } catch (SQLException ex) {
